@@ -1,0 +1,29 @@
+if(!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("Maaslin2")
+
+
+rm(list=ls())
+getwd()
+setwd("~/Desktop")
+dir.create("R_Maaslin_tutorial") # Create a new directory
+setwd("R_Maaslin_tutorial") # Change the current working directory 
+getwd() #check if directory has been successfully changed
+
+#Load MaAsLin2 package into the R environment
+library(Maaslin2)
+?Maaslin2
+
+input_data = system.file(
+    "extdata", "HMP2_taxonomy.tsv", package="Maaslin2") # The abundance table file
+input_data
+input_metadata = system.file(
+    "extdata", "HMP2_metadata.tsv", package="Maaslin2") # The metadata table file
+input_metadata
+
+
+fit_data = Maaslin2(
+    input_data = input_data, 
+    input_metadata = input_metadata, 
+    output = "demo_output", 
+    fixed_effects = c("diagnosis", "dysbiosis"))
